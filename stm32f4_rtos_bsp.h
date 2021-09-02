@@ -1,7 +1,18 @@
 #ifndef __STM32_RTOS_BSP_H__
 #define __STM32_RTOS_BSP_H__
 #include "stm32f4xx.h"                  // Device header
+#include "stdint.h"
 
+/** @brief:
+
+ *  The meaning of each digit of application version:
+ *  First digit:    Major release version.
+ *  Second digit:   Minor release version.
+ *  Third digit:    Hotfix/Bugfix version.
+ *  Fourth digit:   Feature version.
+ *
+ * */
+#define APPLICATION_VERSION   "v0.0.0.1"
 
 /**
   * @brief Function to initialize board leds. 
@@ -99,4 +110,11 @@ void bspLedBlueToggle(void);
 	*	@return non
   */
 void bspAdc1Init(void);
+
+/**
+  * @brief Function to read ADC1. 
+	*	@params void 
+	*	@return non
+  */
+uint32_t bspAdcRead(void);
 #endif

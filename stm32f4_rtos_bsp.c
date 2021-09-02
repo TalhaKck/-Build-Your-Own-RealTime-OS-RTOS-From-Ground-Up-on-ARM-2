@@ -27,7 +27,7 @@ void bspAdc1Init(void)
 	/* PA1 set as analog. */
 	GPIOA->MODER |= 0xC;
 	
-	/* Setup ADC. */
+	/* Enable ADC1 clock. */
 	RCC->APB2ENR |= 0x00000100; 
 	ADC1->CR2 = 0;
 	/* Conversion sequence start at channel 1. */
@@ -35,6 +35,22 @@ void bspAdc1Init(void)
 	/* Length of sequence is 1. */
 	ADC1->SQR1 = 0; 
 	ADC1->CR2 |= 1;
+}
+/**
+  * @brief Function to read ADC1. 
+	*	@params void 
+	*	@return non
+  */
+uint32_t bspAdcRead(void)
+{
+	/* Start conversion. */
+	ADC1->CR2 |= 0x40000000;
+	/* Wait for conversion complete. */
+	while(!(ADC1->SR & 2))
+	{
+	}
+	/* Return data register value. */
+	return ADC1->DR;
 }
 /**
   * @brief Function to initialize board leds. 
