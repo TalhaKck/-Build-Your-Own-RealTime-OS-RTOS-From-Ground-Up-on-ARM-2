@@ -12,8 +12,15 @@
  *  Fourth digit:   Feature version.
  *
  * */
-#define APPLICATION_VERSION   "v0.0.0.1"
+#define APPLICATION_VERSION   "v0.0.0.2"
 
+/**
+  * @brief Function to make delay. 
+	*	@params uint32_t delay 
+	*	@return non
+  */
+void bspDelayMillis(uint32_t delay);
+	
 /**
   * @brief Function to initialize board leds. 
 	*	@params void 
@@ -114,7 +121,19 @@ void bspAdc1Init(void);
 /**
   * @brief Function to read ADC1. 
 	*	@params void 
-	*	@return non
+	*	@return data register value
   */
 uint32_t bspAdcRead(void);
+/**
+  * @brief Function to initialize button. 
+	*	@params void 
+	*	@return non
+  */
+void bspButtonInit(void);
+/**
+  * @brief Function to read button. 
+	*	@params void 
+	*	@return IDR value
+  */
+uint32_t bspButtonRead(void);
 #endif

@@ -8,13 +8,61 @@
 #define BSP_LED_BLUE						(1U<<15)
 
 /* Set the clock bits of the ports. */
-#define GPIOD_CLOCK							(1U<<3)
-
+#define GPIOD_CLOCK								(1U<<3)
+#define GPIOA_CLOCK								(1U<<0)
 #define BSP_LED_GREEN_MODE_BIT		(1U<<24)
 #define BSP_LED_ORANGE_MODE_BIT		(1U<<26)
 #define BSP_LED_RED_MODE_BIT			(1U<<28)
 #define BSP_LED_BLUE_MODE_BIT			(1U<<30)
 
+#define BSP_BUTTON_PORT						 GPIOA
+/**
+  * @brief Function to initialize button. 
+	*	@params void 
+	*	@return non
+  */
+void bspButtonInit(void)
+{
+	/* Enable required clock. */
+	RCC->AHB1ENR |= GPIOA_CLOCK;
+	/* Clear PA0 pin. */
+	BSP_BUTTON_PORT->MODER &= ~0x00000011;
+}
+/**
+  * @brief Function to read button. 
+	*	@params void 
+	*	@return IDR value
+  */
+uint32_t bspButtonRead(void)
+{
+	/* Return Input data register.*/
+	return BSP_BUTTON_PORT->IDR &0x01;
+}
+/**
+  * @brief Function to make delay. 
+	*	@params uint32_t delay 
+	*	@return non
+  */
+void bspDelayMillis(uint32_t delay)
+{
+	/* Enable TIM3 clock. */
+	RCC->APB1ENR |= 0x02;
+	/* 16MHz - 1, count from zero. 16MHz / 160 = 100KHz */
+	TIM3->PSC = 160-1; 
+	/* 100KHz / 100 = 1000 */
+	TIM3->ARR = 100 - 1; 
+	TIM3->CNT = 0;
+	TIM3->CR1 = 1;
+	for(uint32_t i = 0; i<delay; i++)
+	{
+		/* Wait for Update interrupt flag(UIF) set. */
+		while(!(TIM3->SR & 1)) 
+		{
+		}
+		/* Reset the status register 1. */
+		TIM3->SR &= ~1;
+	}
+}
 /**
   * @brief Function to initialize ADC1. 
 	*	@params void 
@@ -39,7 +87,7 @@ void bspAdc1Init(void)
 /**
   * @brief Function to read ADC1. 
 	*	@params void 
-	*	@return non
+	*	@return data register value
   */
 uint32_t bspAdcRead(void)
 {

@@ -4,24 +4,27 @@
 
 int main()
 {
-	/* Holds delay variable. */
-	int i; 
 	/* Holds ADC value. */
 	uint32_t sensorVal = 0;
+  /* Holds button state. */
+	uint32_t buttonState = 0;
 	/* Initialize led configs. */
 	bspLedInit();
 	/* Initialize ADC configs. */
 	bspAdc1Init();
+	/* Initialize button configs. */
+	bspButtonInit();
 	/* Main loop. */
 	while(1)
 	{
 		//bspLedGreenToggle();
 		bspLedGreenOn();
 		bspLedRedOn();
-		for(i = 0; i < 50000000; i++);
+		bspDelayMillis(1000);
 		bspLedGreenOff();
 		bspLedRedOff();
-		for(i = 0; i < 50000000; i++);
-		sensorVal = bspAdcRead();
+		bspDelayMillis(1000);
+		//sensorVal = bspAdcRead();
+		buttonState = bspButtonRead();
 	}
 }
