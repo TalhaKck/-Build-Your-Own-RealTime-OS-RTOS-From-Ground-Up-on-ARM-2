@@ -136,4 +136,38 @@ void bspButtonInit(void);
 	*	@return IDR value
   */
 uint32_t bspButtonRead(void);
+/**
+  * @brief Function to initialize Probe. 
+	*	@params void 
+	*	@return non
+  */
+void bspProbeInit(void);
+
+/**
+  * @brief Function to initialize Probe Channel 0. 
+	*	@params void 
+	*	@return non
+  */
+void bspProbeCH0();
+/**
+  * @brief Function to initialize Probe Channel 1. 
+	*	@params void 
+	*	@return non
+  */
+void bspProbeCH1();
+
+/**
+  * @brief Function to initialize Probe Channel 2. 
+	*	@params void 
+	*	@return non
+  */
+void bspProbeCH2();
+
+/**
+  * @brief Function to initialize Probe Channel 3. 
+	*	@params void 
+	*	@return non
+  */
+void bspProbeCH3();
+
 #endif

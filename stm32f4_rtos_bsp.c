@@ -1,21 +1,82 @@
 /* Include Header files. */
-#include "stm32f4_rtos_bsp.h"
+#include "stm32f4_rtos_bsp.h" 
 
-#define BSP_LED_PORT			  		 GPIOD
-#define BSP_LED_GREEN						(1U<<12)
-#define BSP_LED_ORANGE		  		(1U<<13)
-#define BSP_LED_RED				  		(1U<<14)
-#define BSP_LED_BLUE						(1U<<15)
+#define BSP_LED_PORT			  			 GPIOD
+#define BSP_LED_GREEN							(1U<<12)
+#define BSP_LED_ORANGE		  			(1U<<13)
+#define BSP_LED_RED				  			(1U<<14)
+#define BSP_LED_BLUE							(1U<<15)
 
 /* Set the clock bits of the ports. */
-#define GPIOD_CLOCK								(1U<<3)
 #define GPIOA_CLOCK								(1U<<0)
+#define GPIOC_CLOCK   						(1U<<2)
+#define GPIOD_CLOCK								(1U<<3)
+/* Set the mode bits of the ports. */
 #define BSP_LED_GREEN_MODE_BIT		(1U<<24)
 #define BSP_LED_ORANGE_MODE_BIT		(1U<<26)
 #define BSP_LED_RED_MODE_BIT			(1U<<28)
 #define BSP_LED_BLUE_MODE_BIT			(1U<<30)
 
 #define BSP_BUTTON_PORT						 GPIOA
+#define BSP_PROBE_PORT						 GPIOC
+
+/* PC0 as output. */
+#define BSP_Probe0_BIT  (1U<<0)  
+/* PC1 as output. */
+#define BSP_Probe1_BIT  (1U<<2)   
+/* PC2 as output. */
+#define BSP_Probe2_BIT  (1U<<4)   
+/* PC4 as output. */
+#define BSP_Probe3_BIT  (1U<<8)   
+
+#define CH0							(1U<<0)
+#define CH1							(1U<<1)
+#define CH2							(1U<<2)
+#define CH3							(1U<<4)
+
+/**
+  * @brief Function to initialize Probe. 
+	*	@params void 
+	*	@return non
+  */
+void bspProbeInit(void){
+
+	  RCC->AHB1ENR |= GPIOC_CLOCK;
+	  BSP_PROBE_PORT->MODER |=  BSP_Probe0_BIT|BSP_Probe1_BIT|BSP_Probe2_BIT|BSP_Probe3_BIT;
+}
+/**
+  * @brief Function to initialize Probe Channel 0. 
+	*	@params void 
+	*	@return non
+  */
+void bspProbeCH0(){
+  BSP_PROBE_PORT->ODR ^= CH0;
+}
+/**
+  * @brief Function to initialize Probe Channel 1. 
+	*	@params void 
+	*	@return non
+  */
+void bspProbeCH1(){
+  BSP_PROBE_PORT->ODR ^= CH1;
+}
+/**
+  * @brief Function to initialize Probe Channel 2. 
+	*	@params void 
+	*	@return non
+  */
+void bspProbeCH2(){
+  BSP_PROBE_PORT->ODR ^= CH2;
+}
+/**
+  * @brief Function to initialize Probe Channel 3. 
+	*	@params void 
+	*	@return non
+  */
+void bspProbeCH3(){
+  BSP_PROBE_PORT->ODR ^= CH3;
+}
+
 /**
   * @brief Function to initialize button. 
 	*	@params void 

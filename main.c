@@ -5,7 +5,7 @@
 int main()
 {
 	/* Holds ADC value. */
-	uint32_t sensorVal = 0;
+	//uint32_t sensorVal = 0;
   /* Holds button state. */
 	uint32_t buttonState = 0;
 	/* Initialize led configs. */
@@ -14,6 +14,8 @@ int main()
 	bspAdc1Init();
 	/* Initialize button configs. */
 	bspButtonInit();
+	/* Initialize probe configs. */
+	bspProbeInit();
 	/* Main loop. */
 	while(1)
 	{
@@ -23,6 +25,10 @@ int main()
 		bspDelayMillis(1000);
 		bspLedGreenOff();
 		bspLedRedOff();
+		bspProbeCH0();
+		bspProbeCH1();
+		bspProbeCH2();
+		bspProbeCH3();
 		bspDelayMillis(1000);
 		//sensorVal = bspAdcRead();
 		buttonState = bspButtonRead();
